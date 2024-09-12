@@ -9,7 +9,8 @@ I am using AWS to create a an Ubuntu EC2 instance to do this project.
 
 - Once the file is downloaded, we need to restrict the permissions on the file, so run 'chmod <filename> 0400'    , as the default setting is 0644 which is unsecure and open to others. 
 
-- Once the correct permission is set , run this command to connect to the instance - 'ssh -i <filename>.pem ubuntu@<ip-address>' and you should be able to login   . NOTE: Usually its ec2-user@<ip-address>, but Ubuntu    requires us to use ubuntu@<ip-address>
+- Once the correct permission is set , run this command to connect to the instance - 'ssh -i <filename>.pem ubuntu@<ip-address>' and you should be able to login   . NOTE: Usually its ec2-user@<ip-address>, but Ubuntu    requires us to use ubuntu@<ip-address>, and the ip-address is the public ip address of the instance copied from the aws portal. 
 
 - Once the above command is run, you will have sucessfully logged into your Ubuntu Linux Instance
 
+For my instance the login command is 
