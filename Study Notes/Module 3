@@ -1,1 +1,168 @@
 Introduction to File System 
+
+
+/boot - Contains files used by boot loader (grub.cfg)
+
+/root - root user home directory, it is not the same as / 
+
+/dev - System devices (eg.disk, cdrom, speakers, flashdrive) alll the hardware are created as files which are shown here
+
+/etc - configuration files
+
+/bin -> /usr/bin  - Everyday user commands
+
+/sbin -> /usr/sbin  - System commands 
+
+/opt  - Optional add more applications
+
+/proc  - runnning processes
+
+/lib -> usr/lib  - C programming library files needed by commands and apps 
+
+
+/tmp - Directory for temporary files
+
+/home - Directory for user
+
+/var -  System logs
+
+/run - System daemon files that start very early / temporary runtime files like PID files. 
+
+/mnt - To mount a System volume
+
+/media - for edrom mounts
+
+
+-------------------------------------------------------------------------------------------------------------------------
+
+
+Linux file types
+
+-  Regular file
+d Directory
+l link 
+c spacial character device file
+s socket (network communication files)
+p Named pipe (FIFO files - inter-process communication, data tranfer from one process to another)
+
+b blocked device 
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+What is a root ?
+
+1) Root Account - Similar to Admin account , here it is called root 
+
+2) Root as / as the very first directory, or known as the root directory 
+
+3) Root home directory - which means /root directory, 
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+
+Change Password:
+
+passwd userid 
+
+
+    Enter old password
+    Enter new password
+    Re-enter the newpassword
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+Path types
+
+1) Absolute path -  Eg: cd /var/log/samba
+
+2) Relative path -  Eg: cd /var and then cd log and then cd sambda - ( We are not using /)
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+Creating files and directories 
+
+mkdir <directory name >
+
+rmdir <directory name>
+
+
+
+
+touch   - touch abc -> creates a file called abc
+
+cp - cp abc lex   -> it copies content from abc file to a new file called lex
+
+vi - vi abc -> opens vi editor and opens abc file ready to edit  (:wq to save and exit , or :q to exit without saving )
+
+
+
+cp can be used to copy contents of a directory to a new directory as well. 
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+Finding Files and Directories
+
+
+find - find . -name "abc"  Look for abc file in the current directory 
+
+
+locate  - locate abc
+
+
+locate command works faster as it uses a pre-built db and find just goes through each foler. 
+but this pre-built db needs to be updated regulary for the locate command to work, 
+
+so use 'updatedb' to do this 
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+Wildcards
+
+
+* - represents zero or more characters
+
+? - represents a single character 
+
+[] - represents a range of characters
+
+
+For example 
+ 
+ touch abc{1..9}-xyz   - Creates  abc1-xyz  abc2-xyz  abc3-xyz  abc4-xyz  abc5-xyz  abc6-xyz  abc7-xyz  abc8-xyz  abc9-xyz
+
+ ls abc* - Lists all files starting with abc
+
+ rm *xyz  - Removed abc1-xyz  abc2-xyz  abc3-xyz  abc4-xyz  abc5-xyz  abc6-xyz  abc7-xyz  abc8-xyz  abc9-xyz
+
+ls ?bc*  - List files which has whatever first character, but has 'bc' as second letters and anything after that
+
+ls *[bc]*  - List files with 'bc' in the name but anything before or after 'bc'
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+Soft link and Hard Link 
+
+
+Soft link - Link gets deleted if the file is delete 
+
+Hard Link - Link does not gets delete even if the file gets deleted
+
+
+
+
+
