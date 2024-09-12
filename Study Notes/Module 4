@@ -1,0 +1,69 @@
+File Permissions
+
+3 types of Permissions
+
+r - read
+w - write
+x - execute
+
+
+Each permissions is controlled at three levels 
+
+u - user -yourself
+
+g - group 
+
+o - other -everyone else on the system
+
+
+
+- ls -l abc  -> to display the file permisions of abc
+
+   Current state -   -rw-r--r--
+
+- chmod a-r abc -> remove read permisisons for all users 
+
+    Current state - --w-------
+
+- chmod u+rw abc  -> Add read and write permissions to abc file 
+
+   Current state - -rw-------
+
+- chmod g+rw abc -> Add read write permissions to abc file for group 
+
+   Current State -  -rw-rw----
+
+- chmod o+r abc -> Add read permissions for others 
+   
+   Current State - -rw-rw-r--
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+
+Using Numberical Mode
+
+
+so, for chmod ugo+r  -> user, group and others get read permissions
+
+else you can do chmod 444
+
+Execute - 1
+Write - 2
+Read -  4
+
+
+Number Permission              Symbol
+0      No Permission           ---
+1      Execute                 --x
+2      Write                   -w-
+3      Execute + write         -wx
+4      Read                    r--
+5      Read + Execute           r-x
+6      Read + Write             rw-
+7      Read + Write + Execute   rwx
+
+
+
+
+
+
