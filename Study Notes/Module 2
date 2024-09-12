@@ -1,0 +1,15 @@
+You can use Oracle Virtual Box to create a Linux VM using any of the Linux distribution images, 
+
+
+I am using AWS to create a an Ubuntu EC2 instance to do this project. 
+
+- Login to AWS EC2 portal and create a free tier ubuntu instance, make sure Security group has TCP enabled for port 22, usually done automatically
+
+- download the .pem file for OpenSSH in Mac or .pek file for Putty in Windows. 
+
+- Once the file is downloaded, we need to restrict the permissions on the file, so run 'chmod <filename> 0400'    , as the default setting is 0644 which is unsecure and open to others. 
+
+- Once the correct permission is set , run this command to connect to the instance - 'ssh -i <filename>.pem ubuntu@<ip-address>' and you should be able to login   . NOTE: Usually its ec2-user@<ip-address>, but Ubuntu    requires us to use ubuntu@<ip-address>
+
+- Once the above command is run, you will have sucessfully logged into your Ubuntu Linux Instance
+
