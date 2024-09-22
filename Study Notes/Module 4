@@ -67,3 +67,4 @@ Number Permission              Symbol
 
 
 ..
+ssh -i openssh_linux_jay.pem ubuntu@52.21.135.179
