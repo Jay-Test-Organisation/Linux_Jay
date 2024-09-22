@@ -65,6 +65,10 @@ Number Permission              Symbol
 
 
 
+ Password for root account on EC2 instance is ubuntu 
+sd
 
 ..
 ssh -i openssh_linux_jay.pem ubuntu@52.21.135.179
+
+s
