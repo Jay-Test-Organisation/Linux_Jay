@@ -71,4 +71,63 @@ sd
 ..
 ssh -i openssh_linux_jay.pem ubuntu@52.21.135.179
 
-s
+
+
+
+------------------------------------------------------------------------
+
+To open a file, use cat abc
+
+To add a line to a file --> echo "Hi Hello World" > abc
+To add an extra line without deleting the above line to the same file  -> echo "World is beautiful" >> abc     ---> if we only use  one > then it replaces the line with the new message 
+
+
+ 
+------------------------------------------------------------------------
+Input and Output redirect
+
+
+Standard Input - stdin  -> file descripter 0
+Standard Output - stdout -> file descripter 1
+Standard Error - stderr -> file descripter 2
+
+
+If you want to add the output of a command into a file use this way:
+
+For Eg:    ls -l > abc
+
+This creates a file abc with the contents of the output of the command 
+
+
+
+To add an eror from a command to a file use this way, as error descriptor is 2 
+
+   ls -l 2> <errorfile>
+
+
+------------------------------------------------------------------------
+
+Standard output to a file using tee command 
+
+
+
+
+
+
+------------------------------------------------------------------------
+Tee Command 
+
+
+uou can use tee command to run a command  and create a file with the output of the same command 
+
+For Eg:  
+
+echo "I am Jay P"  | tee <abc>    --> This will echo the line and also create a file abc with the line saved in it 
+
+
+
+To check how many characters are in a file 
+
+Eg: wc -c <filename>
+
+
