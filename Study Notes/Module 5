@@ -141,3 +141,50 @@ For Eg:
 
 Switch Users and Sudo Access (su,sudo)
 
+su - switch user
+sudo - super user do --> to run something as super user
+visudo - edit the sudoers file ./etc/sudoers
+
+
+
+----------------------------------------------------------------------------------------------------------------------------
+
+
+Monitor Users (who, w, last, id)
+
+
+sudo login <username>  ----> login as a different user
+enter the password and you will be logged in as the user - to run above, the current user should have sudo previlages.
+
+
+
+        who - gives the list of users who are logged in and their userid and their terminalid 
+
+
+        who | more  ----> gives the list of users who are logged in and their userid and their terminalid in one page at a time
+
+
+        w - gives the list of users who are logged in and their terminal id and the time they have been logged in and the time they have been idle
+       
+       last - gives the list of users who have logged in and logged out and the time they have logged in and logged out
+
+         For Eg: last | awk '{print $1}' | sort | uniq  ----> gives the list of users who have logged in and logged out and the time they have logged in and logged out in a sorted manner and unique
+
+        id - gives the user id of the user and the group id of the user
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+
+Talking to Users (users, wall, write)
+
+users - gives the list of users who are logged in
+wall - write a message to all the users who are logged in
+write - write a message to a specific user who is logged in
+
+
+
+For Eg: users  ----> gives the list of users who are logged in
+
+        wall <message>  ----> write a message to all the users who are logged in
+
+        write <username>  ----> write a message to a specific user who is logged in
