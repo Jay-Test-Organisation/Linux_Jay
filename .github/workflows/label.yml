@@ -6,10 +6,9 @@
 # https://github.com/actions/labeler
 
 name: Labeler
-on:
-  push: 
-    branches:
-    - main
+on: 
+  pull_request:
+    types: [opened, synchronize]
     
 
 jobs:
@@ -21,6 +20,10 @@ jobs:
       pull-requests: write
 
     steps:
-    - uses: actions/labeler@v4
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Labeler
+      uses: actions/labeler@v4
       with:
         repo-token: "${{ secrets.GITHUB_TOKEN }}"
