@@ -300,8 +300,30 @@ tar and gzip
         you can use gzip -d abc.tar.gz to unzip the gzip file 
 
  
+-------------------------------------------------------------------------------------------------------------------------------
 
-r
+
+Truncate file size
+
+cut down file size 
+
+
+For Eg: 
+     
+     truncate -s <new-size> <filename>  -----> Changes the byte size of the file, but this deletes some content of the file
+
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+Combining and Splitting Files 
+
+
+
+For Eg: echo <file1> > <file2>  -> file 2 will have content of file 1
+        echo <file3> >> <file2>   --> file 3 will be written on next line keeping the content of file 1
+
+         split -l 2 <file2> <new-file>  ---> this will create a new file with 2 lines from file 2, and another new file with other 2 lines from file 2 etc... 
+          
 
 
 
