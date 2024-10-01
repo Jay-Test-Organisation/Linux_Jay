@@ -1,0 +1,143 @@
+Module 5 - Linux System Adminstration
+
+Linux Text Editors 
+
+vi - Visual editor
+ed - Standard line Editors
+ex - Extended line Editors
+emacs - A full screen editor
+pico - Beginners Editors
+vim - Advanced version of vi 
+
+
+Using Vi
+Commands
+
+i = insert
+escape = escape
+r = replace
+d = delete
+u = undo
+:q! = quit without saving 
+:wq! = quit and save
+
+
+----------------------------------------------------------------------------------------------------------------
+
+Sed Command 
+
+
+Replaces a text inside a file with another text
+
+Find and delete a line 
+
+Find Empty Lines and remove 
+
+
+sed is used for only outputting data , it doesnt make changes in the file                
+
+For Eg: 
+
+    sed 's/kenny/lenny' <filename>      ---------> replaces kenny with lenny and saves the file , s means substitute here
+    sed 's/kenny//g' <filename>         ---------> kenny is replaced by blank 
+    sed 's/kenny//d' <filename>     ---------> deletes the line with kenny in it 
+    sed -i '/^$/d' <filename>      -----------> Delete blank line, ^ means anything that starts and has nothing and $ means anything that ends with $ means nothing, delete the lines, -i option is needed
+    sed '1d' <filename>  -------------> delete the first line 
+    sed 's/\t\ \g'  -------------------->  /t means tab , and we are replacing tab with space in this one
+
+
+
+--------------------------------------------------------------------------------------------------------------------
+
+User Account Management
+
+
+
+
+useradd
+groupadd
+userdel
+groupdel
+usermod
+
+
+These user details are saved in three places 
+
+/etc/passwd
+/etc/group
+/etc/shadow
+
+
+ For Eg:
+        su -  ----> switch user to root
+        useradd <username>  ----> create a new user with a home directory   
+        id <username>  ----> gives the user id, so we know if the user is created from the above step, also can check in home directory if the user is created
+
+        groupadd <groupname>  ----> create a new group
+        cat /etc/group  ----> to see the group details, check for groupname
+        userdel <username>  ----> delete a user
+        userdel -r <username>  ----> delete a user and the home directory
+        groupdel <groupname>  ----> delete a group
+
+        usermod -g <groupname> <username>  ----> change the group of the user, it adds the user to the new group, but it also belongs to the old group
+        chgrp -R <groupname> <username> ----> -R means changes in all the files mentioned above, and the groupname is the new group name, and old group is removed
+
+        grep <username> /etc/passwd  ---->check in /etc /passwd folder to see how the user has been created and what details are there
+
+        So to add a user with all details we can use the below command
+
+        useradd -g <groupname> -c <comment> -d <home directory> -m -s <shell> <username>  ----> -g is group, -c is comment, -d is home directory, -m is create home directory, -s is shell, and username is the username
+           
+           For eg: useradd -g superhero -s /bin/bash  -c "Iron man Character" -m -d /home/ironman -m ironman
+
+
+        To change the password of the user we can use the below command
+
+        passwd <username>  ----> change the password of the user
+
+        To check the password of the user we can use the below command
+
+        passwd -S <username>  ----> check the status of the password of the user
+
+        To lock the password of the user we can use the below command
+
+        passwd -l <username>  ----> lock the password of the user
+
+        To unlock the password of the user we can use the below command
+
+        passwd -u <username>  ----> unlock the password of the user
+
+
+
+--------------------------------------------------------------------------------------------------------------------
+
+
+Password Aging / Expiry 
+
+
+chage <username> - change the password expiry information for a user
+
+
+to check passw details of a user we can use the below command
+
+more /etc/login.defs  ----> check the password change controls  
+
+
+For Eg: 
+
+    chage -l <username>  ----> check the password expiry details of the user
+
+    chage -M <days> <username>  ----> change the password expiry details of the user, -M is the maximum number of days the password is valid for the user
+
+    chage -m <days> <username>  ----> change the minimum number of days the password is valid for the user
+
+    chage -W <days> <username>  ----> change the number of days the user is warned before the password expires
+
+    chage -I <days> <username>  ----> change the number of days the password expires after the account is disabled
+
+
+--------------------------------------------------------------------------------------------------------------------
+
+
+Switch Users and Sudo Access (su,sudo)
+
