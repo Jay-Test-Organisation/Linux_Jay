@@ -188,3 +188,7 @@ For Eg: users  ----> gives the list of users who are logged in
         wall <message>  ----> write a message to all the users who are logged in
 
         write <username>  ----> write a message to a specific user who is logged in
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------
