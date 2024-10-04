@@ -193,4 +193,123 @@ For Eg: users  ----> gives the list of users who are logged in
 
 -----------------------------------------------------------------------------------------------
 
------------------------------------------------------------------------------------------------ddddd
+-----------------------------------------------------------------------------------------------
+
+
+System Utility Commands
+
+
+- date - gives the current date and time
+
+- uptime - gives the current time the system has been up and running
+
+- hostname - gives the hostname of the system
+
+- uname - gives the name of the system
+
+- which - gives the path of the command
+
+- cal - gives the calendar of the current month
+
+- bc - calculator
+
+-----------------------------------------------------------------------------------------------
+
+Processes and Jobs
+
+
+Application = Service
+
+Script = Program
+
+Process = Running instance of a program
+
+Daemon = Background process
+
+Thread = Lightweight process
+
+Jobs = Processes running in the background
+
+-----------------------------------------------------------------------------------------------
+
+Process and service Commands
+
+
+Systemctl - control the services
+
+
+
+
+ps - gives the list of processes running in the system
+
+
+
+top - gives the list of processes running in the system in a dynamic way, it keeps updating the list of processes running in the system
+
+
+kill - kills a process
+
+
+kill -9 - kills a process forcefully
+
+
+crontab - schedule a job to run at a specific time
+
+
+at - schedule a job to run at a specific time
+
+
+
+-----------------------------------------------------------------------------------------------
+
+Systemctl
+
+
+For Eg: 
+
+
+systemctl status <servicename>  ----> gives the status of the service
+
+systemctl start <servicename>  ----> starts the service
+
+systemctl stop <servicename>  ----> stops the service
+
+systemctl restart <servicename>  ----> restarts the service
+
+systemctl enable <servicename>  ----> runs the service at the time of booting
+
+systemctl disable <servicename>  ----> doesnt run the service at the time of booting
+
+systemctl list-units --type=service  ----> gives the list of services running in the system
+
+systemctl list-units --type=service --all  ----> gives the list of services running in the system including the inactive ones
+
+systemctl list-units --type=service --all --state=inactive  ----> gives the list of services running in the system which are inactive
+
+systemctl list-units --type=service --all --state=active  ----> gives the list of services running in the system which are active
+
+
+To add a service under systemctl Management, Create a file under /etc/systemd/system/<abc>.service folder with the service name and the service details
+
+
+systemctl poweroff  ----> shutdown the system
+systemctl reboot  ----> restart the system
+
+
+-----------------------------------------------------------------------------------------------
+
+
+PS command  - Process Status Command 
+
+
+
+ps - gives the list of processes running in the system
+
+
+PID =   Process ID
+TTYT = Terminal ID / Terminal type
+TIME = Time the CPU has been running for this process has been running
+CMD = Command that is running
+
+
+
