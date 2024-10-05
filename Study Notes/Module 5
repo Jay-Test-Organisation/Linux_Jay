@@ -311,5 +311,39 @@ TTYT = Terminal ID / Terminal type
 TIME = Time the CPU has been running for this process has been running
 CMD = Command that is running
 
+For Eg:
+
+       ps -e ----> gives the list of processes running in the enviornment 
+       ps aux ----> gives the list of processes running in the BSD enviornment
+       ps -ef ----> gives the list of processes running in the enviornment with the full details
+       ps -u <username> ----> gives the list of processes running in the enviornment with the username
+
+  --------------------------------------------------------------------------------------------------------------
+
+
+  Top command
+
+  top command is used to show trhe linux processes and it provides a real time view of the running system. This commands show the information of the system and the list of processes or threads which are currently managed by the linux kernel.
+  threads which are currently managed by the linux kernel.
+
+  When you run top command, it goes into interactive mode, and you can exit this mode by pressing q key.
+
+
+  For Eg:   
+        top  ----> gives the list of processes running in the system in a dynamic way, it keeps updating the list of processes running in the system
+                                        
+
+        PID = Process ID 
+        USER = User /owner of task 
+        PR = Priority of the task
+        NI = Nice value of the task , negative value means higher priority
+        VIRT = Virtual memory used by the task
+        RES = Physical memory used by the task
+        SHR = Shared memory used by the task  
+        S: Status of the task in single-letter form
+        %CPU = CPU usage of the task
+        %MEM = Memory usage of the task
+        
+        
 
 
