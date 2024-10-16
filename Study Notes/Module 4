@@ -159,7 +159,8 @@ For Eg:
     mkdir - create a new directory
     rmdir - Delete a directory
     chrgrp - change group
-    chown - change owner
+    chown - change owner    ---> For Eg: chown -c <user> <filename>
+
 
 
 ------------------------------------------------------------------------
@@ -324,6 +325,17 @@ For Eg: echo <file1> > <file2>  -> file 2 will have content of file 1
 
          split -l 2 <file2> <new-file>  ---> this will create a new file with 2 lines from file 2, and another new file with other 2 lines from file 2 etc... 
           
+
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+Open the terminal as Root user
+
+
+Sudo -s 
+
+
+then use exit to come out of sudo terminal 
 
 
 

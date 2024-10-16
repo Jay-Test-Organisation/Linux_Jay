@@ -397,4 +397,13 @@ At Command
 at command is used to schedule a job only once 
 
 at HH:MM PM    ----> schedule a job to run at a specific time
-atq ----> list the jobs that are scheduled
+atq ----> list the jobs that are scheduled including job numbers 
+atrm <jobnumber>  ----> remove the job that is scheduled
+atd ---> at daemon that manages the at jobs    
+systemctl status atd  ----> check the status of the at service  
+
+For Eg: 
+         
+        at 10:00 PM  ----> schedule a job to run at 10:00 PM
+        echo "This is my first at entry" > at-entry
+        
