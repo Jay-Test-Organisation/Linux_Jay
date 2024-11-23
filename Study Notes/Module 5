@@ -397,13 +397,52 @@ At Command
 at command is used to schedule a job only once 
 
 at HH:MM PM    ----> schedule a job to run at a specific time
-atq ----> list the jobs that are scheduled including job numbers 
-atrm <jobnumber>  ----> remove the job that is scheduled
-atd ---> at daemon that manages the at jobs    
-systemctl status atd  ----> check the status of the at service  
+atq ----> list the jobs that are scheduled
+
+--------------------------------------------------------------------------------------------------------------
+
+4 Different types of Cronsjobs
+
+-hourly
+-daily
+-weekly
+-monthly
+
+All these crons jons are stored in the /etc/cron.<daily-weekly-monthly-etc> folder, except hourly which is 
+stored in the '/etc/cron.d.0hourly' folder
+
+The timing for each of these cron jobs can be changed in the /etc/anacrontab file
 
 For Eg: 
-         
-        at 10:00 PM  ----> schedule a job to run at 10:00 PM
-        echo "This is my first at entry" > at-entry
-        
+
+Go to cd /etc
+
+do-->  ls - l | grep cron   shows the cron jobs with details , else you can also run
+
+ls -l cron.*  ----> shows the cron jobs 
+
+--------------------------------------------------------------------------------------------------------------
+
+
+
+
+Process Management Commands
+
+- 'fg' - Foreground Process that runs in the foreground
+- ctrl + z, jobs and bg --> background process that runs in the background
+- nohup processname &  --> runs the process in the background even after exit
+- pkill processname  --> kills the process with the process name
+- nice -n <value> processname  --> changes the priority of the process ( -19 to 20 priority level) 
+ 
+
+
+--------------------------------------------------------------------------------------------------------------  
+
+System Monitoring Commands
+
+
+top - gives the list of processes running in the system , it keeps updating the list of processes
+df - disk free space  --- > use 'df -h' to get the disk space in human readable format (MB or GB)
+free - gives the free memory
+dmesg - gives the kernel messages
+iosat - gives the input output statistics
