@@ -446,3 +446,162 @@ df - disk free space  --- > use 'df -h' to get the disk space in human readable 
 free - gives the free memory
 dmesg - gives the kernel messages
 iosat - gives the input output statistics
+ip route - gives the ip route details 
+ss - gives the socket statistics
+
+--------------------------------------------------------------------------------------------------------------
+
+System log monitoring commands
+
+Log Directory = /var/log
+
+
+boot - boot log
+chrony - chrony log
+cron - cron log
+maillog - mail log
+secure - secure log
+messages - messages log
+httpd - httpd log
+
+
+--------------------------------------------------------------------------------------------------------------
+
+System Maintenance Commands
+
+shutdown - shutdown the system
+reboot - restart the system
+halt - stop the system
+init 0 - shutdown the system  (init 0-6, 0 is shutdown, init 1  is single user mode, init 6 is restart)
+init 6 - restart the system
+
+--------------------------------------------------------------------------------------------------------------
+
+Changing System hostname
+
+hostname - gives the hostname of the system
+
+hostnamectl set-hostname <hostname>  ----> changes the hostname of the system
+
+--------------------------------------------------------------------------------------------------------------
+
+Finding System Information
+
+
+cat /etc/os-release - gives the  OS system information and version number etc
+dmidecode - gives the a lot of system  information, lots of details, hardware information etc
+uname -a  ---> gives a short line on system information . OS, Kernel version, Architecture etc in one line 
+
+--------------------------------------------------------------------------------------------------------------
+
+System Architecture
+
+arch ---> gives the system architecture  Eg: x86_64 or 32 bit
+
+
+
+32 bit and 64 bit
+
+- main difference is the number of calculations they can do at a time, you can run 32 bit applications
+  on a 64 bit system but not vice versa. 
+
+
+--------------------------------------------------------------------------------------------------------------
+
+Terminal control commands
+
+crtl + c - stop the process
+crtl + z - suspend the process
+crtl + d - exit the terminal
+crtl + u - clear the line , delete everything before the cursor
+
+
+
+--------------------------------------------------------------------------------------------------------------
+
+Recover Root Password
+
+-Restart the system and press 'e' to edit the grub menu
+
+- go to the line starting with 'linux16' and add 'rb.break' at the end of the line
+OR type 'rw init=/bin/sh' at the end of the line
+
+
+- crtl + x to boot the system
+
+- mount -o remount,rw /sysroot
+
+- chroot /sysroot
+
+- passwd root
+
+- Enter new password
+- ReType new password
+- it will say "all authentication tokens updated successfully"
+
+- touch /.autorelabel  ----> to relabel the system
+
+- exit
+
+
+--------------------------------------------------------------------------------------------------------------
+
+SOS Report
+
+
+sos-version - gives the sos version
+
+sosreport - gives the sos report
+
+
+--------------------------------------------------------------------------------------------------------------
+
+Enviornment variables
+
+Environemnt variables are a set of dynamic named values that can affect the way running processes will behave on a computer
+
+
+printenv - gives the list of environment variables
+
+echo $SHELL - gives the shell of the system  --$ is used to get the value of the variable
+
+- To set an environment variable
+
+  - export TEST=123  ---- sets the environment variable TEST to 123
+
+  - echo $TEST  ----> gives the value of the environment variable TEST  -- $
+
+  
+--------------------------------------------------------------------------------------------------------------
+
+
+Special Permissions 
+
+
+-rwx rwx rwx
+users, groups, others
+
+
+to assign special permissions at user level, we can use the below commands
+
+```sh
+  - chmod u+s <filename>  ----> sets the setuid permission for the user
+```
+to assign special permissions at group level, we can use the below commands
+
+  - chmod g+s <filename>  ----> sets the setgid permission for the group
+
+to remove special permissions at user level, we can use the below commands
+
+  - chmod u-s <filename>  ----> removes the setuid permission for the user  
+
+to remove special permissions at group level, we can use the below commands
+
+  - chmod g-s <filename>  ----> removes the setgid permission for the group 
+
+
+
+
+
+
+
