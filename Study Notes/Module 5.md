@@ -1,0 +1,897 @@
+# Module 5 - Linux System Administration
+
+## Linux Text Editors
+
+- vi - Visual editor
+- ed - Standard line Editors
+- ex - Extended line Editors
+- emacs - A full screen editor
+- pico - Beginners Editors
+- vim - Advanced version of vi
+
+### Using Vi Commands
+
+- `i` = insert
+- `escape` = escape
+- `r` = replace
+- `d` = delete
+- `u` = undo
+- `:q!` = quit without saving
+- `:wq!` = quit and save
+
+---
+
+## Sed Command
+
+Replaces a text inside a file with another text
+
+- Find and delete a line
+- Find Empty Lines and remove
+
+`sed` is used for only outputting data, it doesn't make changes in the file
+
+For example:
+
+- `sed 's/kenny/lenny' <filename>` - replaces kenny with lenny and saves the file, `s` means substitute here
+- `sed 's/kenny//g' <filename>` - kenny is replaced by blank
+- `sed 's/kenny//d' <filename>` - deletes the line with kenny in it
+- `sed -i '/^$/d' <filename>` - Delete blank line, `^` means anything that starts and has nothing and `$` means anything that ends with $ means nothing, delete the lines, `-i` option is needed
+- `sed '1d' <filename>` - delete the first line
+- `sed 's/\t\ \g'` - `/t` means tab, and we are replacing tab with space in this one
+
+---
+
+## User Account Management
+
+- `useradd`
+- `groupadd`
+- `userdel`
+- `groupdel`
+- `usermod`
+
+These user details are saved in three places:
+
+- `/etc/passwd`
+- `/etc/group`
+- `/etc/shadow`
+
+For example:
+
+- `su -` - switch user to root
+- `useradd <username>` - create a new user with a home directory
+- `id <username>` - gives the user id, so we know if the user is created from the above step, also can check in home directory if the user is created
+- `groupadd <groupname>` - create a new group
+- `cat /etc/group` - to see the group details, check for groupname
+- `userdel <username>` - delete a user
+- `userdel -r <username>` - delete a user and the home directory
+- `groupdel <groupname>` - delete a group
+- `usermod -g <groupname> <username>` - change the group of the user, it adds the user to the new group, but it also belongs to the old group
+- `chgrp -R <groupname> <username>` - `-R` means changes in all the files mentioned above, and the groupname is the new group name, and old group is removed
+- `grep <username> /etc/passwd` - check in `/etc/passwd` folder to see how the user has been created and what details are there
+
+To add a user with all details we can use the below command:
+
+- `useradd -g <groupname> -c <comment> -d <home directory> -m -s <shell> <username>` - `-g` is group, `-c` is comment, `-d` is home directory, `-m` is create home directory, `-s` is shell, and username is the username
+  - For example: `useradd -g superhero -s /bin/bash -c "Iron man Character" -m -d /home/ironman -m ironman`
+
+To change the password of the user we can use the below command:
+
+- `passwd <username>` - change the password of the user
+
+To check the password of the user we can use the below command:
+
+- `passwd -S <username>` - check the status of the password of the user
+
+To lock the password of the user we can use the below command:
+
+- `passwd -l <username>` - lock the password of the user
+
+To unlock the password of the user we can use the below command:
+
+- `passwd -u <username>` - unlock the password of the user
+
+---
+
+## Password Aging / Expiry
+
+`chage <username>` - change the password expiry information for a user
+
+To check password details of a user we can use the below command:
+
+- `more /etc/login.defs` - check the password change controls
+
+For example:
+
+- `chage -l <username>` - check the password expiry details of the user
+- `chage -M <days> <username>` - change the password expiry details of the user, `-M` is the maximum number of days the password is valid for the user
+- `chage -m <days> <username>` - change the minimum number of days the password is valid for the user
+- `chage -W <days> <username>` - change the number of days the user is warned before the password expires
+- `chage -I <days> <username>` - change the number of days the password expires after the account is disabled
+
+---
+
+## Switch Users and Sudo Access (su, sudo)
+
+- `su` - switch user
+- `sudo` - super user do --> to run something as super user
+- `visudo` - edit the sudoers file `./etc/sudoers`
+
+---
+
+## Monitor Users (who, w, last, id)
+
+- `sudo login <username>` - login as a different user
+- Enter the password and you will be logged in as the user - to run above, the current user should have sudo privileges.
+
+- `who` - gives the list of users who are logged in and their userid and their terminalid
+- `who | more` - gives the list of users who are logged in and their userid and their terminalid in one page at a time
+- `w` - gives the list of users who are logged in and their terminal id and the time they have been logged in and the time they have been idle
+- `last` - gives the list of users who have logged in and logged out and the time they have logged in and logged out
+  - For example: `last | awk '{print $1}' | sort | uniq` - gives the list of users who have logged in and logged out and the time they have logged in and logged out in a sorted manner and unique
+- `id` - gives the user id of the user and the group id of the user
+
+---
+
+## Talking to Users (users, wall, write)
+
+- `users` - gives the list of users who are logged in
+- `wall` - write a message to all the users who are logged in
+- `write` - write a message to a specific user who is logged in
+
+For example:
+
+- `users` - gives the list of users who are logged in
+- `wall <message>` - write a message to all the users who are logged in
+- `write <username>` - write a message to a specific user who is logged in
+
+---
+
+## System Utility Commands
+
+- `date` - gives the current date and time
+- `uptime` - gives the current time the system has been up and running
+- `hostname` - gives the hostname of the system
+- `uname` - gives the name of the system
+- `which` - gives the path of the command
+- `cal` - gives the calendar of the current month
+- `bc` - calculator
+
+---
+
+## Processes and Jobs
+
+- Application = Service
+- Script = Program
+- Process = Running instance of a program
+- Daemon = Background process
+- Thread = Lightweight process
+- Jobs = Processes running in the background
+
+---
+
+## Process and Service Commands
+
+- `systemctl` - control the services
+- `ps` - gives the list of processes running in the system
+- `top` - gives the list of processes running in the system in a dynamic way, it keeps updating the list of processes running in the system
+- `kill` - kills a process
+- `kill -9` - kills a process forcefully
+- `crontab` - schedule a job to run at a specific time
+- `at` - schedule a job to run at a specific time
+
+---
+
+## Systemctl
+
+For example:
+
+- `systemctl status <servicename>` - gives the status of the service
+- `systemctl start <servicename>` - starts the service
+- `systemctl stop <servicename>` - stops the service
+- `systemctl restart <servicename>` - restarts the service
+- `systemctl enable <servicename>` - runs the service at the time of booting
+- `systemctl disable <servicename>` - doesn't run the service at the time of booting
+- `systemctl list-units --type=service` - gives the list of services running in the system
+- `systemctl list-units --type=service --all` - gives the list of services running in the system including the inactive ones
+- `systemctl list-units --type=service --all --state=inactive` - gives the list of services running in the system which are inactive
+- `systemctl list-units --type=service --all --state=active` - gives the list of services running in the system which are active
+
+To add a service under systemctl Management, create a file under `/etc/systemd/system/<abc>.service` folder with the service name and the service details
+
+- `systemctl poweroff` - shutdown the system
+- `systemctl reboot` - restart the system
+
+---
+
+## PS Command - Process Status Command
+
+- `ps` - gives the list of processes running in the system
+
+### PID = Process ID
+### TTYT = Terminal ID / Terminal type
+### TIME = Time the CPU has been running for this process has been running
+### CMD = Command that is running
+
+For example:
+
+- `ps -e` - gives the list of processes running in the environment
+- `ps aux` - gives the list of processes running in the BSD environment
+- `ps -ef` - gives the list of processes running in the environment with the full details
+- `ps -u <username>` - gives the list of processes running in the environment with the username
+
+---
+
+## Top Command
+
+`top` command is used to show the Linux processes and it provides a real-time view of the running system. This command shows the information of the system and the list of processes or threads which are currently managed by the Linux kernel.
+
+When you run `top` command, it goes into interactive mode, and you can exit this mode by pressing `q` key.
+
+For example:
+
+- `top` - gives the list of processes running in the system in a dynamic way, it keeps updating the list of processes running in the system
+- `top -u <username>` - gives the list of processes running in the system with the username
+- `top` then press `c` - gives the list of processes running in the system with the full details
+- `top` then press `m` - gives the list of processes running in the system with the memory usage
+- `top` then press `k` - kills a process based on the PID
+- `top` then `m` and `p` - sort the processes based on the memory usage
+
+### PID = Process ID
+### USER = User /owner of task
+### PR = Priority of the task
+### NI = Nice value of the task, negative value means higher priority
+### VIRT = Virtual memory used by the task
+### RES = Physical memory used by the task
+### SHR = Shared memory used by the task
+### S: Status of the task in single-letter form
+### %CPU = CPU usage of the task
+### %MEM = Memory usage of the task
+
+---
+
+## KILL Command
+
+`kill` command is used to kill a process by its PID
+
+For example:
+
+- `kill <PID>` - kills a process (use `ps -ef` to get the PID of the process)
+- `kill -l` - to get the list of signals that can be used to kill a process
+- `kill -1` - restarts the process
+- `kill -2` - interrupts the process
+- `kill -9` - kills the process forcefully
+- `kill -15` - kills the process gracefully
+- `kill all <processname>` - kills all the processes with the process name
+- `pkill <processname>` - kills all the processes with the process name
+
+---
+
+## Crontab Command
+
+`crontab` is used to schedule a job to run at a specific time
+
+For example:
+
+- `crontab -l` - list the cron jobs
+- `crontab -e` - edit the cron jobs
+- `crontab -r` - remove the cron jobs
+- `crond` - cron daemon/service that manages the cron jobs
+- `systemctl status crond` - check the status of the cron service
+
+For example: `5 * * * * <command>` - `5` is the minute, `*` is the hour, `*` is the day, `*` is the month, `*` is the day of the week, and command is the command to be executed
+
+---
+
+## At Command
+
+`at` command is used to schedule a job only once
+
+- `at HH:MM PM` - schedule a job to run at a specific time
+- `atq` - list the jobs that are scheduled
+
+---
+
+## 4 Different Types of Cron Jobs
+
+- hourly
+- daily
+- weekly
+- monthly
+
+All these cron jobs are stored in the `/etc/cron.<daily-weekly-monthly-etc>` folder, except hourly which is stored in the `/etc/cron.d.0hourly` folder
+
+The timing for each of these cron jobs can be changed in the `/etc/anacrontab` file
+
+For example:
+
+- Go to `cd /etc`
+- `ls -l | grep cron` - shows the cron jobs with details, else you can also run
+- `ls -l cron.*` - shows the cron jobs
+
+---
+
+## Process Management Commands
+
+- `fg` - Foreground Process that runs in the foreground
+- `ctrl + z`, `jobs` and `bg` - background process that runs in the background
+- `nohup processname &` - runs the process in the background even after exit
+- `pkill processname` - kills the process with the process name
+- `nice -n <value> processname` - changes the priority of the process (`-19` to `20` priority level)
+
+---
+
+## System Monitoring Commands
+
+- `top` - gives the list of processes running in the system, it keeps updating the list of processes
+- `df` - disk free space - use `df -h` to get the disk space in human-readable format (MB or GB)
+- `free` - gives the free memory
+- `dmesg` - gives the kernel messages
+- `iosat` - gives the input-output statistics
+- `ip route` - gives the IP route details
+- `ss` - gives the socket statistics
+
+---
+
+## System Log Monitoring Commands
+
+Log Directory = `/var/log`
+
+- `boot` - boot log
+- `chrony` - chrony log
+- `cron` - cron log
+- `maillog` - mail log
+- `secure` - secure log
+- `messages` - messages log
+- `httpd` - httpd log
+
+---
+
+## System Maintenance Commands
+
+- `shutdown` - shutdown the system
+- `reboot` - restart the system
+- `halt` - stop the system
+- `init 0` - shutdown the system (`init 0-6`, `0` is shutdown, `init 1` is single user mode, `init 6` is restart)
+- `init 6` - restart the system
+
+---
+
+## Changing System Hostname
+
+- `hostname` - gives the hostname of the system
+- `hostnamectl set-hostname <hostname>` - changes the hostname of the system
+
+---
+
+## Finding System Information
+
+- `cat /etc/os-release` - gives the OS system information and version number etc
+- `dmidecode` - gives a lot of system information, lots of details, hardware information etc
+- `uname -a` - gives a short line on system information. OS, Kernel version, Architecture etc in one line
+
+---
+
+## System Architecture
+
+- `arch` - gives the system architecture, e.g., `x86_64` or `32 bit`
+
+### 32 bit and 64 bit
+
+- The main difference is the number of calculations they can do at a time, you can run 32-bit applications on a 64-bit system but not vice versa.
+
+---
+
+## Terminal Control Commands
+
+- `ctrl + c` - stop the process
+- `ctrl + z` - suspend the process
+- `ctrl + d` - exit the terminal
+- `ctrl + u` - clear the line, delete everything before the cursor
+
+---
+
+## Recover Root Password
+
+- Restart the system and press `e` to edit the grub menu
+- Go to the line starting with `linux16` and add `rb.break` at the end of the line OR type `rw init=/bin/sh` at the end of the line
+- `ctrl + x` to boot the system
+- `mount -o remount,rw /sysroot`
+- `chroot /sysroot`
+- `passwd root`
+- Enter new password
+- ReType new password
+- It will say "all authentication tokens updated successfully"
+- `touch /.autorelabel` - to relabel the system
+- `exit`
+
+---
+
+## SOS Report
+
+- `sos-version` - gives the sos version
+- `sosreport` - gives the sos report
+
+---
+
+## Environment Variables
+
+Environment variables are a set of dynamic named values that can affect the way running processes will behave on a computer
+
+- `printenv` - gives the list of environment variables
+- `echo $SHELL` - gives the shell of the system - `$` is used to get the value of the variable
+
+To set an environment variable:
+
+- `export TEST=123` - sets the environment variable TEST to 123
+- `echo $TEST` - gives the value of the environment variable TEST - `$`
+
+---
+
+## Special Permissions
+
+- `-rwx rwx rwx`
+- users, groups, others
+
+To assign special permissions at user level, we can use the below commands:
+
+- `chmod u+s <filename>` - sets the setuid permission for the user
+
+To assign special permissions at group level, we can use the below commands:
+
+- `chmod g+s <filename>` - sets the setgid permission for the group
+
+To remove special permissions at user level, we can use the below commands:
+
+- `chmod u-s <filename>` - removes the setuid permission for the user
+
+To remove special permissions at group level, we can use the below commands:
+
+- `chmod g-s <filename>` - removes the setgid permission# Module 5 - Linux System Administration
+
+## Linux Text Editors
+
+- vi - Visual editor
+- ed - Standard line Editors
+- ex - Extended line Editors
+- emacs - A full screen editor
+- pico - Beginners Editors
+- vim - Advanced version of vi
+
+### Using Vi Commands
+
+- `i` = insert
+- `escape` = escape
+- `r` = replace
+- `d` = delete
+- `u` = undo
+- `:q!` = quit without saving
+- `:wq!` = quit and save
+
+---
+
+## Sed Command
+
+Replaces a text inside a file with another text
+
+- Find and delete a line
+- Find Empty Lines and remove
+
+`sed` is used for only outputting data, it doesn't make changes in the file
+
+For example:
+
+- `sed 's/kenny/lenny' <filename>` - replaces kenny with lenny and saves the file, `s` means substitute here
+- `sed 's/kenny//g' <filename>` - kenny is replaced by blank
+- `sed 's/kenny//d' <filename>` - deletes the line with kenny in it
+- `sed -i '/^$/d' <filename>` - Delete blank line, `^` means anything that starts and has nothing and `$` means anything that ends with $ means nothing, delete the lines, `-i` option is needed
+- `sed '1d' <filename>` - delete the first line
+- `sed 's/\t\ \g'` - `/t` means tab, and we are replacing tab with space in this one
+
+---
+
+## User Account Management
+
+- `useradd`
+- `groupadd`
+- `userdel`
+- `groupdel`
+- `usermod`
+
+These user details are saved in three places:
+
+- `/etc/passwd`
+- `/etc/group`
+- `/etc/shadow`
+
+For example:
+
+- `su -` - switch user to root
+- `useradd <username>` - create a new user with a home directory
+- `id <username>` - gives the user id, so we know if the user is created from the above step, also can check in home directory if the user is created
+- `groupadd <groupname>` - create a new group
+- `cat /etc/group` - to see the group details, check for groupname
+- `userdel <username>` - delete a user
+- `userdel -r <username>` - delete a user and the home directory
+- `groupdel <groupname>` - delete a group
+- `usermod -g <groupname> <username>` - change the group of the user, it adds the user to the new group, but it also belongs to the old group
+- `chgrp -R <groupname> <username>` - `-R` means changes in all the files mentioned above, and the groupname is the new group name, and old group is removed
+- `grep <username> /etc/passwd` - check in `/etc/passwd` folder to see how the user has been created and what details are there
+
+To add a user with all details we can use the below command:
+
+- `useradd -g <groupname> -c <comment> -d <home directory> -m -s <shell> <username>` - `-g` is group, `-c` is comment, `-d` is home directory, `-m` is create home directory, `-s` is shell, and username is the username
+  - For example: `useradd -g superhero -s /bin/bash -c "Iron man Character" -m -d /home/ironman -m ironman`
+
+To change the password of the user we can use the below command:
+
+- `passwd <username>` - change the password of the user
+
+To check the password of the user we can use the below command:
+
+- `passwd -S <username>` - check the status of the password of the user
+
+To lock the password of the user we can use the below command:
+
+- `passwd -l <username>` - lock the password of the user
+
+To unlock the password of the user we can use the below command:
+
+- `passwd -u <username>` - unlock the password of the user
+
+---
+
+## Password Aging / Expiry
+
+`chage <username>` - change the password expiry information for a user
+
+To check password details of a user we can use the below command:
+
+- `more /etc/login.defs` - check the password change controls
+
+For example:
+
+- `chage -l <username>` - check the password expiry details of the user
+- `chage -M <days> <username>` - change the password expiry details of the user, `-M` is the maximum number of days the password is valid for the user
+- `chage -m <days> <username>` - change the minimum number of days the password is valid for the user
+- `chage -W <days> <username>` - change the number of days the user is warned before the password expires
+- `chage -I <days> <username>` - change the number of days the password expires after the account is disabled
+
+---
+
+## Switch Users and Sudo Access (su, sudo)
+
+- `su` - switch user
+- `sudo` - super user do --> to run something as super user
+- `visudo` - edit the sudoers file `./etc/sudoers`
+
+---
+
+## Monitor Users (who, w, last, id)
+
+- `sudo login <username>` - login as a different user
+- Enter the password and you will be logged in as the user - to run above, the current user should have sudo privileges.
+
+- `who` - gives the list of users who are logged in and their userid and their terminalid
+- `who | more` - gives the list of users who are logged in and their userid and their terminalid in one page at a time
+- `w` - gives the list of users who are logged in and their terminal id and the time they have been logged in and the time they have been idle
+- `last` - gives the list of users who have logged in and logged out and the time they have logged in and logged out
+  - For example: `last | awk '{print $1}' | sort | uniq` - gives the list of users who have logged in and logged out and the time they have logged in and logged out in a sorted manner and unique
+- `id` - gives the user id of the user and the group id of the user
+
+---
+
+## Talking to Users (users, wall, write)
+
+- `users` - gives the list of users who are logged in
+- `wall` - write a message to all the users who are logged in
+- `write` - write a message to a specific user who is logged in
+
+For example:
+
+- `users` - gives the list of users who are logged in
+- `wall <message>` - write a message to all the users who are logged in
+- `write <username>` - write a message to a specific user who is logged in
+
+---
+
+## System Utility Commands
+
+- `date` - gives the current date and time
+- `uptime` - gives the current time the system has been up and running
+- `hostname` - gives the hostname of the system
+- `uname` - gives the name of the system
+- `which` - gives the path of the command
+- `cal` - gives the calendar of the current month
+- `bc` - calculator
+
+---
+
+## Processes and Jobs
+
+- Application = Service
+- Script = Program
+- Process = Running instance of a program
+- Daemon = Background process
+- Thread = Lightweight process
+- Jobs = Processes running in the background
+
+---
+
+## Process and Service Commands
+
+- `systemctl` - control the services
+- `ps` - gives the list of processes running in the system
+- `top` - gives the list of processes running in the system in a dynamic way, it keeps updating the list of processes running in the system
+- `kill` - kills a process
+- `kill -9` - kills a process forcefully
+- `crontab` - schedule a job to run at a specific time
+- `at` - schedule a job to run at a specific time
+
+---
+
+## Systemctl
+
+For example:
+
+- `systemctl status <servicename>` - gives the status of the service
+- `systemctl start <servicename>` - starts the service
+- `systemctl stop <servicename>` - stops the service
+- `systemctl restart <servicename>` - restarts the service
+- `systemctl enable <servicename>` - runs the service at the time of booting
+- `systemctl disable <servicename>` - doesn't run the service at the time of booting
+- `systemctl list-units --type=service` - gives the list of services running in the system
+- `systemctl list-units --type=service --all` - gives the list of services running in the system including the inactive ones
+- `systemctl list-units --type=service --all --state=inactive` - gives the list of services running in the system which are inactive
+- `systemctl list-units --type=service --all --state=active` - gives the list of services running in the system which are active
+
+To add a service under systemctl Management, create a file under `/etc/systemd/system/<abc>.service` folder with the service name and the service details
+
+- `systemctl poweroff` - shutdown the system
+- `systemctl reboot` - restart the system
+
+---
+
+## PS Command - Process Status Command
+
+- `ps` - gives the list of processes running in the system
+
+### PID = Process ID
+### TTYT = Terminal ID / Terminal type
+### TIME = Time the CPU has been running for this process has been running
+### CMD = Command that is running
+
+For example:
+
+- `ps -e` - gives the list of processes running in the environment
+- `ps aux` - gives the list of processes running in the BSD environment
+- `ps -ef` - gives the list of processes running in the environment with the full details
+- `ps -u <username>` - gives the list of processes running in the environment with the username
+
+---
+
+## Top Command
+
+`top` command is used to show the Linux processes and it provides a real-time view of the running system. This command shows the information of the system and the list of processes or threads which are currently managed by the Linux kernel.
+
+When you run `top` command, it goes into interactive mode, and you can exit this mode by pressing `q` key.
+
+For example:
+
+- `top` - gives the list of processes running in the system in a dynamic way, it keeps updating the list of processes running in the system
+- `top -u <username>` - gives the list of processes running in the system with the username
+- `top` then press `c` - gives the list of processes running in the system with the full details
+- `top` then press `m` - gives the list of processes running in the system with the memory usage
+- `top` then press `k` - kills a process based on the PID
+- `top` then `m` and `p` - sort the processes based on the memory usage
+
+### PID = Process ID
+### USER = User /owner of task
+### PR = Priority of the task
+### NI = Nice value of the task, negative value means higher priority
+### VIRT = Virtual memory used by the task
+### RES = Physical memory used by the task
+### SHR = Shared memory used by the task
+### S: Status of the task in single-letter form
+### %CPU = CPU usage of the task
+### %MEM = Memory usage of the task
+
+---
+
+## KILL Command
+
+`kill` command is used to kill a process by its PID
+
+For example:
+
+- `kill <PID>` - kills a process (use `ps -ef` to get the PID of the process)
+- `kill -l` - to get the list of signals that can be used to kill a process
+- `kill -1` - restarts the process
+- `kill -2` - interrupts the process
+- `kill -9` - kills the process forcefully
+- `kill -15` - kills the process gracefully
+- `kill all <processname>` - kills all the processes with the process name
+- `pkill <processname>` - kills all the processes with the process name
+
+---
+
+## Crontab Command
+
+`crontab` is used to schedule a job to run at a specific time
+
+For example:
+
+- `crontab -l` - list the cron jobs
+- `crontab -e` - edit the cron jobs
+- `crontab -r` - remove the cron jobs
+- `crond` - cron daemon/service that manages the cron jobs
+- `systemctl status crond` - check the status of the cron service
+
+For example: `5 * * * * <command>` - `5` is the minute, `*` is the hour, `*` is the day, `*` is the month, `*` is the day of the week, and command is the command to be executed
+
+---
+
+## At Command
+
+`at` command is used to schedule a job only once
+
+- `at HH:MM PM` - schedule a job to run at a specific time
+- `atq` - list the jobs that are scheduled
+
+---
+
+## 4 Different Types of Cron Jobs
+
+- hourly
+- daily
+- weekly
+- monthly
+
+All these cron jobs are stored in the `/etc/cron.<daily-weekly-monthly-etc>` folder, except hourly which is stored in the `/etc/cron.d.0hourly` folder
+
+The timing for each of these cron jobs can be changed in the `/etc/anacrontab` file
+
+For example:
+
+- Go to `cd /etc`
+- `ls -l | grep cron` - shows the cron jobs with details, else you can also run
+- `ls -l cron.*` - shows the cron jobs
+
+---
+
+## Process Management Commands
+
+- `fg` - Foreground Process that runs in the foreground
+- `ctrl + z`, `jobs` and `bg` - background process that runs in the background
+- `nohup processname &` - runs the process in the background even after exit
+- `pkill processname` - kills the process with the process name
+- `nice -n <value> processname` - changes the priority of the process (`-19` to `20` priority level)
+
+---
+
+## System Monitoring Commands
+
+- `top` - gives the list of processes running in the system, it keeps updating the list of processes
+- `df` - disk free space - use `df -h` to get the disk space in human-readable format (MB or GB)
+- `free` - gives the free memory
+- `dmesg` - gives the kernel messages
+- `iosat` - gives the input-output statistics
+- `ip route` - gives the IP route details
+- `ss` - gives the socket statistics
+
+---
+
+## System Log Monitoring Commands
+
+Log Directory = `/var/log`
+
+- `boot` - boot log
+- `chrony` - chrony log
+- `cron` - cron log
+- `maillog` - mail log
+- `secure` - secure log
+- `messages` - messages log
+- `httpd` - httpd log
+
+---
+
+## System Maintenance Commands
+
+- `shutdown` - shutdown the system
+- `reboot` - restart the system
+- `halt` - stop the system
+- `init 0` - shutdown the system (`init 0-6`, `0` is shutdown, `init 1` is single user mode, `init 6` is restart)
+- `init 6` - restart the system
+
+---
+
+## Changing System Hostname
+
+- `hostname` - gives the hostname of the system
+- `hostnamectl set-hostname <hostname>` - changes the hostname of the system
+
+---
+
+## Finding System Information
+
+- `cat /etc/os-release` - gives the OS system information and version number etc
+- `dmidecode` - gives a lot of system information, lots of details, hardware information etc
+- `uname -a` - gives a short line on system information. OS, Kernel version, Architecture etc in one line
+
+---
+
+## System Architecture
+
+- `arch` - gives the system architecture, e.g., `x86_64` or `32 bit`
+
+### 32 bit and 64 bit
+
+- The main difference is the number of calculations they can do at a time, you can run 32-bit applications on a 64-bit system but not vice versa.
+
+---
+
+## Terminal Control Commands
+
+- `ctrl + c` - stop the process
+- `ctrl + z` - suspend the process
+- `ctrl + d` - exit the terminal
+- `ctrl + u` - clear the line, delete everything before the cursor
+
+---
+
+## Recover Root Password
+
+- Restart the system and press `e` to edit the grub menu
+- Go to the line starting with `linux16` and add `rb.break` at the end of the line OR type `rw init=/bin/sh` at the end of the line
+- `ctrl + x` to boot the system
+- `mount -o remount,rw /sysroot`
+- `chroot /sysroot`
+- `passwd root`
+- Enter new password
+- ReType new password
+- It will say "all authentication tokens updated successfully"
+- `touch /.autorelabel` - to relabel the system
+- `exit`
+
+---
+
+## SOS Report
+
+- `sos-version` - gives the sos version
+- `sosreport` - gives the sos report
+
+---
+
+## Environment Variables
+
+Environment variables are a set of dynamic named values that can affect the way running processes will behave on a computer
+
+- `printenv` - gives the list of environment variables
+- `echo $SHELL` - gives the shell of the system - `$` is used to get the value of the variable
+
+To set an environment variable:
+
+- `export TEST=123` - sets the environment variable TEST to 123
+- `echo $TEST` - gives the value of the environment variable TEST - `$`
+
+---
+
+## Special Permissions
+
+- `-rwx rwx rwx`
+- users, groups, others
+
+To assign special permissions at user level, we can use the below commands:
+
+- `chmod u+s <filename>` - sets the setuid permission for the user
+
+To assign special permissions at group level, we can use the below commands:
+
+- `chmod g+s <filename>` - sets the setgid permission for the group
+
+To remove special permissions at user level, we can use the below commands:
+
+- `chmod u-s <filename>` - removes the setuid permission for the user
+
+To remove special permissions at group level, we can use the below commands:
+
+- `chmod g-s <filename>` - removes the setgid permission
