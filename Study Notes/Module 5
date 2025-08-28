@@ -895,3 +895,22 @@ To remove special permissions at user level, we can use the below commands:
 To remove special permissions at group level, we can use the below commands:
 
 - `chmod g-s <filename>` - removes the setgid permission
+
+--------------------------------------------------------------------------------------
+
+
+## Screen Command
+
+screen command  
+
+
+rpm -qa | grep screen 
+
+
+
+dnf install epel-release  --> need to install this package before screen installation
+
+dnf install screen 
+
+
+Start by running the 'screen' command 

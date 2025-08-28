@@ -1,21 +1,19 @@
-File Permissions
+#File Permissions
 
-3 types of Permissions
+## 3 types of Permissions
 
-r - read
-w - write
-x - execute
+- r - read
+- w - write
+- x - execute
 
 
 Each permissions is controlled at three levels 
 
-u - user -yourself
+- u - user -yourself
+- g - group 
+- o - other -everyone else on the system
 
-g - group 
-
-o - other -everyone else on the system
-
-
+## Commands
 
 - ls -l abc  -> to display the file permisions of abc
 
@@ -37,10 +35,10 @@ o - other -everyone else on the system
    
    Current State - -rw-rw-r--
 
-----------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
 
 
-Using Numberical Mode
+## Using Numberical Mode
 
 
 so, for chmod ugo+r  -> user, group and others get read permissions
